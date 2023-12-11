@@ -1,20 +1,30 @@
 using UnityEngine;
 
-public abstract class Variable : ScriptableObject
+namespace ArchitectureLibrary
 {
-    public new virtual string ToString()
+    public abstract class Variable<T> : Variable
     {
-        string errorMessage = "Cannot convert to string";
-        Debug.LogError(errorMessage);
-        return errorMessage;
-    }
-}
+        public abstract T value { get; set; }
 
-public enum Comparison
-{
-    EqualTo,
-    LessThan,
-    GreaterThan,
-    LessThanOrEqualTo,
-    GreaterThanOrEqualTo
+        public override string ToString()
+        {
+            string errorMessage = "Cannot convert to string";
+            Debug.LogError(errorMessage);
+            return errorMessage;
+        }
+    }
+
+    public abstract class Variable : ScriptableObject
+    {
+        public new abstract string ToString();
+    }
+
+    public enum Comparison
+    {
+        EqualTo,
+        LessThan,
+        GreaterThan,
+        LessThanOrEqualTo,
+        GreaterThanOrEqualTo
+    }
 }

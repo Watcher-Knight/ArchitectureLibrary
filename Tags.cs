@@ -2,11 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Tags : MonoBehaviour
+namespace ArchitectureLibrary
 {
-    [SerializeField] private List<Tag> tags = new List<Tag>();
+    public class Tags : MonoBehaviour
+    {
+        [SerializeField] private List<Tag> tags = new List<Tag>();
 
-    public bool Contains(Tag tag) => tags.Contains(tag);
+        public bool Contains(Tag tag) => tags.Contains(tag);
 
-    public List<Tag> GetTags() => tags;
+        public List<Tag> GetTags() => tags;
+    }
 }

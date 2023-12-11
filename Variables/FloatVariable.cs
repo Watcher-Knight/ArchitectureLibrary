@@ -1,20 +1,23 @@
-using System.Security.Cryptography.X509Certificates;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "FloatVariable", menuName = "Variable/Float", order = 0)]
-public class FloatVariable : Variable
+namespace ArchitectureLibrary
 {
-    public float value = 0f;
-
-    public void Set(float number)
+    [CreateAssetMenu(fileName = "FloatVariable", menuName = "Variable/Float", order = 0)]
+    public class FloatVariable : NumberVariable<float>
     {
-        value = number;
-    }
+        [SerializeField] private float _value = 0f;
+        public override float value { get => _value; set => _value = value; }
 
-    public void Add(float number)
-    {
-        value += number;
-    }
+        public void Set(float number)
+        {
+            value = number;
+        }
 
-    public override string ToString() => $"{value}";
+        public void Add(float number)
+        {
+            value += number;
+        }
+
+        public override string ToString() => $"{value}";
+    }
 }

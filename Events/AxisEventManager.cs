@@ -6,29 +6,34 @@ using System.Globalization;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class AxisEventManager : EventManager
+namespace ArchitectureLibrary
 {
-    [SerializeField] private InputAction axis = new InputAction(expectedControlType: "Axis");
-    [SerializeField] private AxisAction action;
-
-    private void OnValidate()
+    [AddComponentMenu("Event Managers/Axis Event Manager")]
+    public class AxisEventManager : EventManager
     {
-        if (axis.bindings.Count == 0)
-            axis.AddCompositeBinding("1DAxis").With("Positive", "<Keyboard>/rightArrow").With("Negative", "<Keyboard>/LeftArrow");
-    }
+        [SerializeField] private InputAction axis = new InputAction(expectedControlType: "Axis");
+        [SerializeField] private AxisAction action;
 
-    private void OnEnable()
-    {
-        axis.Enable();
-    }
+        protected override void OnValidate()
+        {
+            base.OnValidate();
+            if (axis.bindings.Count == 0)
+                axis.AddCompositeBinding("1DAxis").With("Positive", "<Keyboard>/rightArrow").With("Negative", "<Keyboard>/leftArrow");
+        }
 
-    private void OnDisable()
-    {
-        axis.Disable();
-    }
+        private void OnEnable()
+        {
+            axis.Enable();
+        }
 
-    private void Update()
-    {
-        action.Invoke(axis.ReadValue<float>());
+        private void OnDisable()
+        {
+            axis.Disable();
+        }
+
+        private void Update()
+        {
+            if (CheckConditions() && action != null) action.Invoke(axis.ReadValue<float>());
+        }
     }
 }

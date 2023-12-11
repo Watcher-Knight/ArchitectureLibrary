@@ -2,18 +2,21 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DebugAction : Action
+namespace ArchitectureLibrary
 {
-    private bool IsLogging = false;
-    public override bool isActive => IsLogging;
-    public void Invoke()
+    public class DebugAction : Action
     {
-        Debug.Log("Success!");
-        IsLogging = true;
-    }
+        private bool IsLogging = false;
+        public override bool isActive => IsLogging;
+        public void Invoke()
+        {
+            Debug.Log("Success!");
+            IsLogging = true;
+        }
 
-    private void LateUpdate()
-    {
-        IsLogging = false;
+        private void LateUpdate()
+        {
+            IsLogging = false;
+        }
     }
 }

@@ -5,23 +5,30 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.InputSystem;
 
-public class ButtonEventManager : EventManager
+namespace ArchitectureLibrary
 {
-    [SerializeField] private InputAction button = 
-        new InputAction(type: InputActionType.Button, binding: "<Mouse>/leftButton");
-    [SerializeField] private UnityEvent effect;
-    public bool value => button.ReadValue<float>() > 0;
-    public bool pressed => button.triggered;
-
-    private void OnEnable()
+    [AddComponentMenu("Event Managers/Button Event Manager")]
+    public class ButtonEventManager : EventManager
     {
-        button.Enable();
+        [SerializeField]
+        private InputAction button =
+            new InputAction(type: InputActionType.Button, binding: "<Mouse>/leftButton");
+        [SerializeField] private UnityEvent effect;
+        public bool value => button.ReadValue<float>() > 0;
+        public bool pressed => button.triggered;
 
-        button.performed += _ => { if (CheckConditions()) effect.Invoke(); };
-    }
+        private void OnEnable()
+        {
+            button.Enable();
 
-    private void OnDisable()
-    {
-        button.Disable();
+            button.performed += _ => { if (CheckConditions()) effect.Invoke(); };
+        }
+
+        private void OnDisable()
+        {
+            button.Disable();
+        }
+
+        protected override void OnValidate() => base.OnValidate();
     }
 }

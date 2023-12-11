@@ -3,17 +3,25 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
-public class StartEventManager : EventManager
+namespace ArchitectureLibrary
 {
-    [SerializeField] private UnityEvent effect;
-
-    private void Start()
+    [AddComponentMenu("Event Managers/Start Event Manager")]
+    public class StartEventManager : EventManager
     {
-        if (debugMode)
-        {
-            if (CheckConditions()) Debug.Log("Conditions are all positive.");
-        }
+        [SerializeField] private UnityEvent effect = new UnityEvent();
 
-        if (CheckConditions()) effect.Invoke();
+        private void Start()
+        {
+            if (debugMode)
+            {
+                if (CheckConditions()) Debug.Log("Conditions are all positive.");
+            }
+
+            if (CheckConditions()) effect.Invoke();
+        }
+        protected override void OnValidate() => base.OnValidate();
+
+        public void AddEvent(UnityAction action) => UnityEditor.Events.UnityEventTools.AddPersistentListener(effect, action);
+        public void Test() => Debug.Log("Testing");
     }
 }
