@@ -1,17 +1,16 @@
 using System.IO;
 using UnityEngine;
 using UnityEditor;
+using System.Collections.Generic;
+using System.Text.RegularExpressions;
+using System.Runtime.InteropServices.WindowsRuntime;
+using System.Linq;
 
 namespace ArchitectureLibrary
 {
     class GameObjectFactory
     {
-        public static PrefabList prefabList;
-
-        [MenuItem("Assets/Create/Template/Projectile", false, 1)] static void CreateProjectilePrefab() => CreatePrefab(prefabList.projectile, "NewProjectilePrefab");
-        [MenuItem("GameObject/Template/Projectile", false, 0)] static void CreateProjectileObject() => CreateObject(prefabList.projectile, "NewProjectile");
-
-        private static void CreateObject(GameObject template, string name)
+        public static void CreateObject(GameObject template, string name)
         {
             GameObject gameObject;
             if (Selection.activeTransform != null)
@@ -26,7 +25,7 @@ namespace ArchitectureLibrary
             gameObject.name = name;
         }
 
-        private static void CreatePrefab(GameObject template, string name)
+        public static void CreatePrefab(GameObject template, string name)
         {
             string directory = AssetDatabase.GetAssetPath(Selection.activeObject);
             if (directory == null) return;

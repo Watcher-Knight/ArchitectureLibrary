@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace ArchitectureLibrary
 {
-    [CreateAssetMenu(fileName = "FloatVariable", menuName = "Variable/Float", order = 0)]
+    [CreateAssetMenu(fileName = "FloatVariable", menuName = CreateAssetPaths.variables + FloatVariable.title, order = 0)]
     public class FloatVariable : NumberVariable<float>
     {
         [SerializeField] private float _value = 0f;
@@ -18,6 +18,8 @@ namespace ArchitectureLibrary
             value += number;
         }
 
-        public override string ToString() => $"{value}";
+        public override float ToFloat() => value;
+
+        public const string title = "Float";
     }
 }

@@ -2,11 +2,11 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Events;
+using UltEvents;
 
 namespace ArchitectureLibrary
 {
-    [AddComponentMenu("Event Managers/Event Manager")]
+    [AddComponentMenu(ComponentPaths.eventManager)]
     public class EventManager : MonoBehaviour
     {
 #pragma warning disable 0414
@@ -35,13 +35,14 @@ namespace ArchitectureLibrary
         #region AddConditionMenu
 
         [ContextMenu("Add Condition/Generic Condition")] void AddGenericCondition() { conditions.Add(new Condition()); }
-        [ContextMenu("Add Condition/Custom Condition")] void AddCustomCondition() { conditions.Add(new CustomCondition()); }
+        [ContextMenu("Add Condition/Local Variable Condition")] void AddStatsCondition() { conditions.Add(new StatsCondition()); }
         [ContextMenu("Add Condition/Manager Condition")] void AddManagerCondition() { conditions.Add(new ManagerCondition()); }
         [ContextMenu("Add Condition/Variables/Bool Condition")] void AddBoolCondition() { conditions.Add(new BoolCondition()); }
         [ContextMenu("Add Condition/Variables/Numbers/Int Condition")] void AddIntCondition() { conditions.Add(new IntCondition()); }
         [ContextMenu("Add Condition/Variables/Numbers/Float Condition")] void AddFloatCondition() { conditions.Add(new FloatCondition()); }
         [ContextMenu("Add Condition/Button Condition")] void AddButtonCondition() { conditions.Add(new ButtonCondition()); }
         [ContextMenu(("Add Condition/Trigger Condition"))] void AddTriggerCondition() { conditions.Add(new TriggerCondition()); }
+        [ContextMenu(("Add Condition/Collision Condition"))] void AddCollisionCondition() { conditions.Add(new CollisionCondition()); }
         [ContextMenu(("Add Condition/Action Condition"))] void AddActionCondition() { conditions.Add(new ActionCondition()); }
 
         // [ContextMenu(nameof(RemoveCondition))]

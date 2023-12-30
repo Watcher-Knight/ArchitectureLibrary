@@ -5,13 +5,13 @@ using System.IO;
 
 namespace ArchitectureLibrary
 {
-    [AddComponentMenu("Movement/Move Horizontal (Physics)")]
+    [AddComponentMenu(ComponentPaths.moveHorizontalPhysics)]
     public class MoveHorizontalPhysics : AxisAction
     {
         [SerializeField] private MoveStats stats;
         [SerializeField] private new Rigidbody2D rigidbody;
 
-        public override void CreateStats()
+        protected override void CreateStats()
         {
             string path = AssetPaths.stats;
             string name = $"{transform.root.gameObject.name}Move";

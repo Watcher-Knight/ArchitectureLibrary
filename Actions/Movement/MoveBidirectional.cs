@@ -3,12 +3,12 @@ using UnityEngine;
 
 namespace ArchitectureLibrary
 {
-    [AddComponentMenu("Movement/Move Bidirectional (Simple)")]
+    [AddComponentMenu(ComponentPaths.moveBidirectional)]
     public class MoveBidirectional : V2AxisAction
     {
         [SerializeField] private FloatVariable moveSpeed;
 
-        public override void CreateStats()
+        protected override void CreateStats()
         {
             string path = AssetPaths.stats;
             string name = $"{transform.root.gameObject.name}MoveSpeed";

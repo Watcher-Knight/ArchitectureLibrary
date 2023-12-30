@@ -1,14 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Events;
+using UltEvents;
 
 namespace ArchitectureLibrary
 {
-    [AddComponentMenu("Event Managers/Start Event Manager")]
+    [AddComponentMenu(ComponentPaths.startEventManager)]
     public class StartEventManager : EventManager
     {
-        [SerializeField] private UnityEvent effect = new UnityEvent();
+        [SerializeField] private UltEvent effect = new UltEvent();
 
         private void Start()
         {
@@ -19,9 +19,9 @@ namespace ArchitectureLibrary
 
             if (CheckConditions()) effect.Invoke();
         }
+        public void Invoke() => effect.Invoke();
         protected override void OnValidate() => base.OnValidate();
 
-        public void AddEvent(UnityAction action) => UnityEditor.Events.UnityEventTools.AddPersistentListener(effect, action);
         public void Test() => Debug.Log("Testing");
     }
 }

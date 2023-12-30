@@ -3,7 +3,7 @@ using UnityEngine.InputSystem;
 
 namespace ArchitectureLibrary
 {
-    [AddComponentMenu("Event Managers/Axis Event Manager (Vector2)")]
+    [AddComponentMenu(ComponentPaths.v2AxisEventManager)]
     public class V2AxisEventManager : EventManager
     {
         [SerializeField] private InputAction axis = new InputAction(expectedControlType: "Vector2");

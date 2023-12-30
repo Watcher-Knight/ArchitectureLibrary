@@ -1,8 +1,9 @@
 using UnityEngine;
+using UnityEditor;
 
 namespace ArchitectureLibrary
 {
-    [CreateAssetMenu(fileName = "Logger", menuName = "Debug/Logger", order = 0)]
+    [CreateAtPath(AssetPaths.singletons, "Logger")]
     public class Logger : ScriptableObject
     {
         public void Log(string message) => Debug.Log(message);

@@ -1,8 +1,7 @@
 using System;
 using System.Collections.Generic;
-using System.Net;
-using System.Runtime.CompilerServices;
 using UnityEngine;
+using UnityEditor;
 
 namespace ArchitectureLibrary
 {
@@ -29,23 +28,14 @@ namespace ArchitectureLibrary
         }
     }
 
-    public class CustomCondition : Condition
+    public class StatsCondition : Condition
     {
-        public override bool value
-        {
-            get
-            {
-                return CodeConverter.Compare
-                (
-                    CodeConverter.GetValue(value1),
-                    CodeConverter.GetValue(value2),
-                    comparison
-                );
-            }
-        }
-        [SerializeField] private string value1 = "1";
-        [SerializeField] private Comparison comparison = Comparison.EqualTo;
-        [SerializeField] private string value2 = "1";
+        [SerializeField] private InstanceStats stats;
+        [SerializeField] private string variableName;
+        [SerializeField] private Comparison comparisonType;
+        [SerializeField] private float comparison;
+
+        public override bool value => CodeConverter.Compare<float>(stats.GetVariable(variableName), comparison, comparisonType);
     }
 
     #region Variables
@@ -96,7 +86,7 @@ namespace ArchitectureLibrary
             {
                 if (variable != null)
                 {
-                    if (useObject) return (objectComparison != null) ? 
+                    if (useObject) return (objectComparison != null) ?
                         CodeConverter.Compare<t>(variable.value, objectComparison.value, comparisonType) : false;
                     return CodeConverter.Compare<t>(variable.value, regularComparison, comparisonType);
                 }
@@ -104,30 +94,8 @@ namespace ArchitectureLibrary
             }
         }
     }
-    public class IntCondition : NumberCondition<IntVariable, int> {}
-    public class FloatCondition : NumberCondition<FloatVariable, float> {}
-
-    // [Serializable]
-    // public class IntCondition : NumberCondition<IntVariable, int>
-    // {
-    //     [SerializeField] private IntVariable _variable;
-    //     public override IntVariable variable => _variable;
-    //     [SerializeField] private IntVariable _objectComparison;
-    //     public override IntVariable objectComparison => _objectComparison;
-    //     [SerializeField] private int _regularComparison = 0;
-    //     public override int regularComparison => _regularComparison;
-    // }
-
-    // [Serializable]
-    // public class FloatCondition : NumberCondition<FloatVariable, float>
-    // {
-    //     [SerializeField] private FloatVariable _variable;
-    //     public override FloatVariable variable => _variable;
-    //     [SerializeField] private FloatVariable _objectComparison;
-    //     public override FloatVariable objectComparison => _objectComparison;
-    //     [SerializeField] private float _regularComparison = 0;
-    //     public override float regularComparison => _regularComparison;
-    // }
+    public class IntCondition : NumberCondition<IntVariable, int> { }
+    public class FloatCondition : NumberCondition<FloatVariable, float> { }
 
     #endregion
 
@@ -166,6 +134,26 @@ namespace ArchitectureLibrary
                 foreach (Tag triggerTag in triggerTags)
                 {
                     if (triggerEventManager.eventConditions[eventType].Contains(triggerTag)) return true;
+                }
+                return false;
+            }
+        }
+    }
+
+    public class CollisionCondition : Condition
+    {
+        [SerializeField] private CollisionEventManager collisionEventManager;
+
+        [SerializeField] private CollisionEventType eventType = CollisionEventType.Continuous;
+        [SerializeField] private List<Tag> collisionTags = new List<Tag>();
+
+        public override bool value
+        {
+            get
+            {
+                foreach (Tag collisionTag in collisionTags)
+                {
+                    if (collisionEventManager.eventConditions[eventType].Contains(collisionTag)) return true;
                 }
                 return false;
             }

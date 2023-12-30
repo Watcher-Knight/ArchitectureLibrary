@@ -1,14 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Events;
+using UltEvents;
 
 namespace ArchitectureLibrary
 {
-    [AddComponentMenu("Event Managers/Update Event Manager")]
+    [AddComponentMenu(ComponentPaths.updateEventManager)]
     public class UpdateEventManager : EventManager
     {
-        [SerializeField] private UnityEvent effect;
+        [SerializeField] private UltEvent effect;
 
         private void Update()
         {
@@ -19,6 +19,7 @@ namespace ArchitectureLibrary
 
             if (CheckConditions()) effect.Invoke();
         }
+        public void Invoke() => effect.Invoke();
 
         protected override void OnValidate() => base.OnValidate();
     }

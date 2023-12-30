@@ -2,21 +2,24 @@ using System.IO;
 using UnityEngine;
 using UnityEditor;
 
-public class ScriptableObjectFactory
+namespace ArchitectureLibrary
 {
-    public static T Create<T>(string directory, string name) where T : ScriptableObject
+    public class ScriptableObjectFactory
     {
-        T so = ScriptableObject.CreateInstance<T>();
-        
-        AssetPaths.CreateDirectory(directory);
+        public static T Create<T>(string directory, string name) where T : ScriptableObject
+        {
+            T so = ScriptableObject.CreateInstance<T>();
 
-        string path = $"{directory}/{name}.asset";
-        path = AssetDatabase.GenerateUniqueAssetPath(path);
+            AssetManager.CreateDirectory(directory);
 
-        AssetDatabase.CreateAsset(so, path);
+            string path = $"{directory}/{name}.asset";
+            path = AssetDatabase.GenerateUniqueAssetPath(path);
 
-        EditorGUIUtility.PingObject(so);
+            AssetDatabase.CreateAsset(so, path);
 
-        return so;
+            EditorGUIUtility.PingObject(so);
+
+            return so;
+        }
     }
 }

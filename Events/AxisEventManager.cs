@@ -8,7 +8,7 @@ using UnityEngine.InputSystem;
 
 namespace ArchitectureLibrary
 {
-    [AddComponentMenu("Event Managers/Axis Event Manager")]
+    [AddComponentMenu(ComponentPaths.axisEventManager)]
     public class AxisEventManager : EventManager
     {
         [SerializeField] private InputAction axis = new InputAction(expectedControlType: "Axis");

@@ -6,17 +6,14 @@ namespace ArchitectureLibrary
     {
         public abstract T value { get; set; }
 
-        public override string ToString()
-        {
-            string errorMessage = "Cannot convert to string";
-            Debug.LogError(errorMessage);
-            return errorMessage;
-        }
+        public override string ToString() => value.ToString();
+        public override float ToFloat() => 0f;
     }
 
     public abstract class Variable : ScriptableObject
     {
         public new abstract string ToString();
+        public abstract float ToFloat();
     }
 
     public enum Comparison

@@ -5,13 +5,13 @@ using System.IO;
 
 namespace ArchitectureLibrary
 {
-    [AddComponentMenu("Movement/Move Bidirectional (Physics)")]
+    [AddComponentMenu(ComponentPaths.moveBidirectionalPhysics)]
     public class MoveBidirectionalPhysics : V2AxisAction
     {
         [SerializeField] private MoveStats stats;
         [SerializeField] new private Rigidbody2D rigidbody;
 
-        public override void CreateStats()
+        protected override void CreateStats()
         {
             string path = AssetPaths.stats;
             string name = $"{transform.root.name}Move";

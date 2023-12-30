@@ -4,11 +4,11 @@ using System.Collections.Generic;
 using System.Diagnostics.Contracts;
 using System.Security.Cryptography;
 using UnityEngine;
-using UnityEngine.Events;
+using UltEvents;
 
 namespace ArchitectureLibrary
 {
-    [AddComponentMenu("Event Managers/Coroutine Event Manager")]
+    [AddComponentMenu(ComponentPaths.coroutineEvent)]
     public class CoroutineEvent : EventManager
     {
         [SerializeField] private List<EditorCoroutine> coroutines = new List<EditorCoroutine>();
@@ -81,8 +81,8 @@ namespace ArchitectureLibrary
         public float yieldTime { get => _yieldTime; }
         [SerializeField] private TimeMeasurement _yieldType = TimeMeasurement.Seconds;
         public TimeMeasurement yieldType { get => _yieldType; }
-        [SerializeField] private UnityEvent _effect;
-        public UnityEvent effect { get => _effect; }
+        [SerializeField] private UltEvent _effect;
+        public UltEvent effect { get => _effect; }
     }
 
     public enum TimeMeasurement

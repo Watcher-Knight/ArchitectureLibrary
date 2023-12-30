@@ -2,21 +2,21 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Events;
+using UltEvents;
 
 namespace ArchitectureLibrary
 {
-    [AddComponentMenu("Event Managers/Trigger Event Manager")]
+    [AddComponentMenu(ComponentPaths.triggerEventManager)]
     public class TriggerEventManager : EventManager
     {
         [SerializeField] private List<TriggerEvent> events = new List<TriggerEvent>();
         public List<Collider2D> colliders { get; private set; } = new List<Collider2D>();
         public Dictionary<TriggerEventType, List<Tag>> eventConditions { get; private set; } = new Dictionary<TriggerEventType, List<Tag>>()
-    {
-        { TriggerEventType.Enter, new List<Tag>() },
-        { TriggerEventType.Exit, new List<Tag>() },
-        { TriggerEventType.Continuous, new List<Tag>() }
-    };
+        {
+            { TriggerEventType.Enter, new List<Tag>() },
+            { TriggerEventType.Exit, new List<Tag>() },
+            { TriggerEventType.Continuous, new List<Tag>() }
+        };
 
         private void OnTriggerEnter2D(Collider2D other)
         {
@@ -25,6 +25,7 @@ namespace ArchitectureLibrary
             CheckForEvent(other, TriggerEventType.Enter);
 
             AddConditions(other, TriggerEventType.Enter);
+            AddConditions(other, TriggerEventType.Continuous);
         }
 
         private void OnTriggerExit2D(Collider2D other)
@@ -34,6 +35,7 @@ namespace ArchitectureLibrary
             CheckForEvent(other, TriggerEventType.Exit);
 
             AddConditions(other, TriggerEventType.Exit);
+            RemoveConditions(other, TriggerEventType.Continuous);
         }
 
         private void Update()
@@ -41,17 +43,13 @@ namespace ArchitectureLibrary
             foreach (Collider2D other in colliders)
             {
                 CheckForEvent(other, TriggerEventType.Continuous);
-
-                AddConditions(other, TriggerEventType.Continuous);
             }
         }
 
         private void LateUpdate()
         {
-            foreach (KeyValuePair<TriggerEventType, List<Tag>> eventCondition in eventConditions)
-            {
-                eventCondition.Value.Clear();
-            }
+            eventConditions[TriggerEventType.Enter].Clear();
+            eventConditions[TriggerEventType.Exit].Clear();
         }
 
         protected override void OnValidate() => base.OnValidate();
@@ -92,6 +90,17 @@ namespace ArchitectureLibrary
                 }
             }
         }
+        private void RemoveConditions(Collider2D other, TriggerEventType eventType)
+        {
+            Tags objectTags = other.gameObject.GetComponent<Tags>();
+            if (objectTags != null)
+            {
+                foreach (Tag objectTag in objectTags.GetTags())
+                {
+                    eventConditions[eventType].Remove(objectTag);
+                }
+            }
+        }
     }
 
     [Serializable]
@@ -101,7 +110,7 @@ namespace ArchitectureLibrary
         public TriggerEventType eventType { get { return _eventType; } }
         [SerializeField] private List<Tag> _triggerTags = new List<Tag>();
         public List<Tag> triggerTags { get { return _triggerTags; } }
-        [SerializeField] private UnityEvent effect;
+        [SerializeField] private UltEvent effect;
 
         public void Invoke() { effect.Invoke(); }
     }

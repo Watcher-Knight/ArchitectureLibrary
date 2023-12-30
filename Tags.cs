@@ -4,6 +4,7 @@ using UnityEngine;
 
 namespace ArchitectureLibrary
 {
+    [AddComponentMenu(ComponentPaths.tags)]
     public class Tags : MonoBehaviour
     {
         [SerializeField] private List<Tag> tags = new List<Tag>();

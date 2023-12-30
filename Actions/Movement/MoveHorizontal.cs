@@ -4,12 +4,12 @@ using UnityEngine;
 
 namespace ArchitectureLibrary
 {
-    [AddComponentMenu("Movement/Move Horizontal (Simple)")]
+    [AddComponentMenu(ComponentPaths.moveHorizontal)]
     public class MoveHorizontal : AxisAction
     {
         [SerializeField] private FloatVariable moveSpeed;
 
-        public override void CreateStats()
+        protected override void CreateStats()
         {
             string path = AssetPaths.stats;
             string name = $"{transform.root.gameObject.name}MoveSpeed";

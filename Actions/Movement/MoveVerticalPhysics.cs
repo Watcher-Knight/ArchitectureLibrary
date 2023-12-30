@@ -2,16 +2,17 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 using System.IO;
+using System.ComponentModel;
 
 namespace ArchitectureLibrary
 {
-    [AddComponentMenu("Movement/Move Vertical (Physics)")]
+    [AddComponentMenu(ComponentPaths.moveVerticalPhysics)]
     public class MoveVerticalPhysics : AxisAction
     {
         [SerializeField] private MoveStats stats;
         [SerializeField] private new Rigidbody2D rigidbody;
 
-        public override void CreateStats()
+        protected override void CreateStats()
         {
             string path = AssetPaths.stats;
             string name = $"{transform.root.gameObject.name}Move";

@@ -1,19 +1,18 @@
 using System.Collections;
 using System.Collections.Generic;
-using System.Runtime.InteropServices;
 using UnityEngine;
-using UnityEngine.Events;
+using UltEvents;
 using UnityEngine.InputSystem;
 
 namespace ArchitectureLibrary
 {
-    [AddComponentMenu("Event Managers/Button Event Manager")]
+    [AddComponentMenu(ComponentPaths.buttonEventManager)]
     public class ButtonEventManager : EventManager
     {
         [SerializeField]
         private InputAction button =
             new InputAction(type: InputActionType.Button, binding: "<Mouse>/leftButton");
-        [SerializeField] private UnityEvent effect;
+        [SerializeField] private UltEvent effect;
         public bool value => button.ReadValue<float>() > 0;
         public bool pressed => button.triggered;
 
@@ -28,6 +27,7 @@ namespace ArchitectureLibrary
         {
             button.Disable();
         }
+        public void Invoke() => effect.Invoke();
 
         protected override void OnValidate() => base.OnValidate();
     }
