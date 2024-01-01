@@ -1,49 +1,15 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Diagnostics.Contracts;
-using System.Security.Cryptography;
 using UnityEngine;
-using UltEvents;
 
 namespace ArchitectureLibrary
 {
     [AddComponentMenu(ComponentPaths.coroutineEvent)]
-    public class CoroutineEvent : EventManager
+    public class CoroutineEvent : MonoBehaviour, IInvokeable
     {
-        [SerializeField] private List<EditorCoroutine> coroutines = new List<EditorCoroutine>();
-
-        protected override void OnValidate() => base.OnValidate();
-
-        public void Invoke()
-        {
-            if (CheckConditions()) StartCoroutine(coroutines[0].EventCoroutine());
-        }
-        public void Invoke(string name)
-        {
-            if (CheckConditions())
-            {
-                foreach (EditorCoroutine coroutine in coroutines)
-                {
-                    if (coroutine.name == name)
-                    {
-                        StartCoroutine(coroutine.EventCoroutine());
-                        return;
-                    }
-                }
-                StartCoroutine(coroutines[0].EventCoroutine());
-            }
-        }
-
-        [ContextMenu(nameof(AddCoroutine))] void AddCoroutine() => coroutines.Add(new EditorCoroutine());
-    }
-
-    [Serializable]
-    public class EditorCoroutine
-    {
-        [SerializeField] private string _name = "Coroutine";
-        public string name { get => _name; }
         [SerializeField] private List<YieldEvent> actions = new List<YieldEvent>();
+        private Coroutine current;
 
         public IEnumerator EventCoroutine()
         {
@@ -69,9 +35,12 @@ namespace ArchitectureLibrary
                         break;
                 }
 
-                action.effect.Invoke();
+                action.Invoke();
             }
         }
+
+        public void Invoke() => current = StartCoroutine(EventCoroutine());
+        public void Cancel() { if (current != null) StopCoroutine(current); }
     }
 
     [Serializable]
@@ -81,8 +50,8 @@ namespace ArchitectureLibrary
         public float yieldTime { get => _yieldTime; }
         [SerializeField] private TimeMeasurement _yieldType = TimeMeasurement.Seconds;
         public TimeMeasurement yieldType { get => _yieldType; }
-        [SerializeField] private UltEvent _effect;
-        public UltEvent effect { get => _effect; }
+        [SerializeField] private ActionList action;
+        public void Invoke() => action.Invoke();
     }
 
     public enum TimeMeasurement

@@ -34,18 +34,13 @@ namespace ArchitectureLibrary
 
             if (condition)
             {
-                SerializeNormally(position, property, label);
+                propertyHeight = base.GetPropertyHeight(property, label);
+                EditorGUI.PropertyField(position, property, label);
             }
             else
             {
                 propertyHeight = 0f;
             }
-        }
-
-        public void SerializeNormally(Rect position, SerializedProperty property, GUIContent label)
-        {
-            propertyHeight = base.GetPropertyHeight(property, label);
-            EditorGUI.PropertyField(position, property, label);
         }
     }
 }

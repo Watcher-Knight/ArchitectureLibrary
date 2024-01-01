@@ -1,8 +1,5 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Globalization;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -14,9 +11,8 @@ namespace ArchitectureLibrary
         [SerializeField] private InputAction axis = new InputAction(expectedControlType: "Axis");
         [SerializeField] private AxisAction action;
 
-        protected override void OnValidate()
+        protected void OnValidate()
         {
-            base.OnValidate();
             if (axis.bindings.Count == 0)
                 axis.AddCompositeBinding("1DAxis").With("Positive", "<Keyboard>/rightArrow").With("Negative", "<Keyboard>/leftArrow");
         }

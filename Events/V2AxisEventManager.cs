@@ -9,9 +9,8 @@ namespace ArchitectureLibrary
         [SerializeField] private InputAction axis = new InputAction(expectedControlType: "Vector2");
         [SerializeField] private V2AxisAction action;
 
-        protected override void OnValidate()
+        protected void OnValidate()
         {
-            base.OnValidate();
             if (axis.bindings.Count == 0)
                 axis.AddCompositeBinding("2DVector")
                     .With("Up", "<Keyboard>/upArrow")

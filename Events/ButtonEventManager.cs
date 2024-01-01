@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UltEvents;
 using UnityEngine.InputSystem;
 
 namespace ArchitectureLibrary
@@ -12,7 +11,7 @@ namespace ArchitectureLibrary
         [SerializeField]
         private InputAction button =
             new InputAction(type: InputActionType.Button, binding: "<Mouse>/leftButton");
-        [SerializeField] private UltEvent effect;
+        [SerializeField] private ActionList effect;
         public bool value => button.ReadValue<float>() > 0;
         public bool pressed => button.triggered;
 
@@ -28,7 +27,5 @@ namespace ArchitectureLibrary
             button.Disable();
         }
         public void Invoke() => effect.Invoke();
-
-        protected override void OnValidate() => base.OnValidate();
     }
 }

@@ -5,29 +5,29 @@ using UnityEditor;
 
 namespace ArchitectureLibrary
 {
+    public interface ICondition
+    {
+        bool conditionValue { get; }
+    }
+
     [Serializable]
     public class Condition
     {
         public virtual bool value => true;
         [SerializeField] private bool negative = false;
         public bool GetValue() => (negative) ? !value : value;
-
-        public virtual void OnValidate() { }
     }
 
+    [AddListItem("Manager Condition")]
     public class ManagerCondition : Condition
     {
         [SerializeField] private string managerName;
         [SerializeField] private EventManager eventManager;
 
         public override bool value => (eventManager != null) ? eventManager.CheckConditions() : false;
-
-        public override void OnValidate()
-        {
-            managerName = (eventManager != null) ? eventManager.name : "None";
-        }
     }
 
+    [AddListItem("Stats Condition")]
     public class StatsCondition : Condition
     {
         [SerializeField] private InstanceStats stats;
@@ -94,72 +94,73 @@ namespace ArchitectureLibrary
             }
         }
     }
-    public class IntCondition : NumberCondition<IntVariable, int> { }
-    public class FloatCondition : NumberCondition<FloatVariable, float> { }
+    [AddListItem("Int Condition")] public class IntCondition : NumberCondition<IntVariable, int> { }
+    [AddListItem("Float Condition")] public class FloatCondition : NumberCondition<FloatVariable, float> { }
 
     #endregion
 
-    public class ButtonCondition : Condition
-    {
-        [SerializeField] private string managerName;
-        [SerializeField] private ButtonEventManager buttonEventManager;
-        [SerializeField] private bool OnlyActivateOnPress = false;
+    // public class ButtonCondition : Condition
+    // {
+    //     [SerializeField] private string managerName;
+    //     [SerializeField] private ButtonEventManager buttonEventManager;
+    //     [SerializeField] private bool OnlyActivateOnPress = false;
 
-        public override bool value
-        {
-            get
-            {
-                if (OnlyActivateOnPress) return buttonEventManager.pressed;
-                return buttonEventManager.value;
-            }
-        }
+    //     public override bool value
+    //     {
+    //         get
+    //         {
+    //             if (OnlyActivateOnPress) return buttonEventManager.pressed;
+    //             return buttonEventManager.value;
+    //         }
+    //     }
 
-        public override void OnValidate()
-        {
-            managerName = (buttonEventManager != null) ? buttonEventManager.name : "None";
-        }
-    }
+    //     public override void OnValidate()
+    //     {
+    //         managerName = (buttonEventManager != null) ? buttonEventManager.name : "None";
+    //     }
+    // }
 
-    public class TriggerCondition : Condition
-    {
-        [SerializeField] private TriggerEventManager triggerEventManager;
+    // public class TriggerCondition : Condition
+    // {
+    //     [SerializeField] private TriggerEventManager triggerEventManager;
 
-        [SerializeField] private TriggerEventType eventType = TriggerEventType.Continuous;
-        [SerializeField] private List<Tag> triggerTags = new List<Tag>();
+    //     [SerializeField] private TriggerEventType eventType = TriggerEventType.Continuous;
+    //     [SerializeField] private List<Tag> triggerTags = new List<Tag>();
 
-        public override bool value
-        {
-            get
-            {
-                foreach (Tag triggerTag in triggerTags)
-                {
-                    if (triggerEventManager.eventConditions[eventType].Contains(triggerTag)) return true;
-                }
-                return false;
-            }
-        }
-    }
+    //     public override bool value
+    //     {
+    //         get
+    //         {
+    //             foreach (Tag triggerTag in triggerTags)
+    //             {
+    //                 if (triggerEventManager.eventConditions[eventType].Contains(triggerTag)) return true;
+    //             }
+    //             return false;
+    //         }
+    //     }
+    // }
 
-    public class CollisionCondition : Condition
-    {
-        [SerializeField] private CollisionEventManager collisionEventManager;
+    // public class CollisionCondition : Condition
+    // {
+    //     [SerializeField] private CollisionEventManager collisionEventManager;
 
-        [SerializeField] private CollisionEventType eventType = CollisionEventType.Continuous;
-        [SerializeField] private List<Tag> collisionTags = new List<Tag>();
+    //     [SerializeField] private CollisionEventType eventType = CollisionEventType.Continuous;
+    //     [SerializeField] private List<Tag> collisionTags = new List<Tag>();
 
-        public override bool value
-        {
-            get
-            {
-                foreach (Tag collisionTag in collisionTags)
-                {
-                    if (collisionEventManager.eventConditions[eventType].Contains(collisionTag)) return true;
-                }
-                return false;
-            }
-        }
-    }
+    //     public override bool value
+    //     {
+    //         get
+    //         {
+    //             foreach (Tag collisionTag in collisionTags)
+    //             {
+    //                 if (collisionEventManager.eventConditions[eventType].Contains(collisionTag)) return true;
+    //             }
+    //             return false;
+    //         }
+    //     }
+    // }
 
+    [AddListItem("Action Condition")]
     public class ActionCondition : Condition
     {
         [SerializeField] private Action action;

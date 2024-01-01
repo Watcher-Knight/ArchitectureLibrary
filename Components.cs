@@ -34,7 +34,7 @@ namespace ArchitectureLibrary
         public const string collisionEventManager = events + "/Collision Event Manager";
         public const string coroutineEvent = events + "/Coroutine Event Manager";
         public const string globalEventListener = events + "/Global Event Listener";
-        public const string conditionList = events + "/ConditionList";
+        public const string conditionList = events + "/Conditions";
 
 
         public const string movement = "Movement";
