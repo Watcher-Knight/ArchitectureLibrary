@@ -30,7 +30,7 @@ namespace ArchitectureLibrary
             PropertyInfo conditionProperty = target.GetType().GetProperty(serializeIf.condition, BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance);
             bool condition = (bool)(conditionField?.GetValue(target) ?? conditionProperty.GetValue(target) ?? true);
 
-            condition = (serializeIf.expectedValue) ? condition : !condition;
+            condition = serializeIf.expectedValue ? condition : !condition;
 
             if (condition)
             {

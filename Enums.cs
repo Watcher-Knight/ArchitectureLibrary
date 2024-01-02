@@ -6,4 +6,12 @@ namespace ArchitectureLibrary
         y,
         all
     }
+
+    public enum Direction
+    {
+        left,
+        right,
+        up,
+        down
+    }
 }
