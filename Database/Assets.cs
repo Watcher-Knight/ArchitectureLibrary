@@ -33,7 +33,7 @@ namespace ArchitectureLibrary
         public const string scenes = master + "/Scenes";
         public const string prefabs = master + "/Prefabs";
         public const string animations = master + "/Animations";
-        public const string stats = master + "/Stats";
+        public const string variables = master + "/Variables";
 
         public const string architectureLibrary = master + "/ArchitectureLibrary";
         public const string singletons = architectureLibrary + "/Singletons";

@@ -9,13 +9,6 @@ namespace ArchitectureLibrary
         [SerializeField] private FloatVariable force;
         [SerializeField] private new Rigidbody2D rigidbody;
 
-        protected override void CreateStats()
-        {
-            string path = AssetPaths.stats;
-            string name = $"{transform.root.gameObject.name}LaunchForce";
-            force = ScriptableObjectFactory.Create<FloatVariable>(path, name);
-        }
-
         public override bool isActive => Math.Abs(rigidbody.velocity.x) > 0.01f || Math.Abs(rigidbody.velocity.y) > 0.01f;
         private Vector2 targetDirection = Vector2.zero;
 
@@ -38,29 +31,29 @@ namespace ArchitectureLibrary
 
         public void Invoke()
         {
-            Vector2 direction = Converter.RotationToDirection(rigidbody.transform.eulerAngles.z);
+            Vector2 direction = Calculator.RotationToDirection(rigidbody.transform.eulerAngles.z);
             _Invoke(direction);
         }
         public void Invoke(Vector2 direction)
         {
-            _Invoke(Converter.GetDirection(direction));
+            _Invoke(Calculator.GetDirection(direction));
         }
         public void Invoke(Vector2Variable direction)
         {
-            _Invoke(Converter.GetDirection(direction.value));
+            _Invoke(Calculator.GetDirection(direction.value));
         }
         public void Invoke(Vector3Variable direction)
         {
-            _Invoke(Converter.GetDirection(new Vector2(direction.value.x, direction.value.y)));
+            _Invoke(Calculator.GetDirection(new Vector2(direction.value.x, direction.value.y)));
         }
         public void Invoke(float rotation)
         {
-            Vector2 direction = Converter.RotationToDirection(rotation);
+            Vector2 direction = Calculator.RotationToDirection(rotation);
             _Invoke(direction);
         }
         public void Invoke(FloatVariable rotation)
         {
-            Vector2 direction = Converter.RotationToDirection(rotation.value);
+            Vector2 direction = Calculator.RotationToDirection(rotation.value);
             _Invoke(direction);
         }
 

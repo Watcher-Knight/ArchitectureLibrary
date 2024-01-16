@@ -8,8 +8,8 @@ namespace ArchitectureLibrary
     {
         public abstract bool isActive { get; }
 
-        [ContextMenu("Create Stats")] void _CreateStats() => CreateStats();
+        //[ContextMenu("Create Stats")] void _CreateStats() => CreateStats();
 
-        protected abstract void CreateStats();
+        //protected abstract void CreateStats();
     }
 }

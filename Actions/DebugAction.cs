@@ -8,13 +8,6 @@ namespace ArchitectureLibrary
     {
         [SerializeField] private StringVariable message;
 
-        protected override void CreateStats()
-        {
-            string path = AssetPaths.stats;
-            string name = $"{transform.root.gameObject.name}LogMessage";
-            message = ScriptableObjectFactory.Create<StringVariable>(path, name);
-        }
-
         private void Start()
         {
             if (message == null) message = ScriptableObject.CreateInstance<StringVariable>();

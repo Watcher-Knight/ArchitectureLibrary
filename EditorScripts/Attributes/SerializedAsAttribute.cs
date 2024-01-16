@@ -3,20 +3,33 @@ using UnityEditor;
 
 namespace ArchitectureLibrary
 {
-    public class SerializedAsAttribute : PropertyAttribute
+    public class LabelAttribute : PropertyAttribute
     {
-        public string label;
-        public SerializedAsAttribute(string label) => this.label = label;
+        public string text;
+        public LabelAttribute(string text) => this.text = text;
     }
 
-    [CustomPropertyDrawer(typeof(SerializedAsAttribute))]
-    public class SerializedAsDrawer : PropertyDrawer
+    [CustomPropertyDrawer(typeof(LabelAttribute))]
+    public class LabelDrawer : PropertyDrawer
     {
+        private float propertyHeight = 0f;
+        public override float GetPropertyHeight(SerializedProperty property, GUIContent label) => propertyHeight;
         public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
         {
-            SerializedAsAttribute serializedAs = attribute as SerializedAsAttribute;
+            LabelAttribute newLabel = attribute as LabelAttribute;
 
-            EditorGUI.PropertyField(position, property, new GUIContent(serializedAs.label));
+            PropertyDrawer drawer = PropertyDrawerFinder.Find(property);
+
+            if (drawer != null)
+            {
+                drawer.OnGUI(position, property, new GUIContent(newLabel.text));
+                propertyHeight = drawer.GetPropertyHeight(property, label);
+            }
+            else
+            {
+                EditorGUI.PropertyField(position, property, new GUIContent(newLabel.text));
+                propertyHeight = base.GetPropertyHeight(property, label);
+            }
         }
     }
 }

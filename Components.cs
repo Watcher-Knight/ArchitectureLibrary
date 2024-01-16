@@ -32,19 +32,21 @@ namespace ArchitectureLibrary
         public const string v2AxisEventManager = events + "/Axis Event Manager (Vector2)";
         public const string triggerEventManager = events + "/Trigger Event Manager";
         public const string collisionEventManager = events + "/Collision Event Manager";
+        public const string listenerEventManager = events + "/Listener Event Manager";
         public const string coroutineEvent = events + "/Coroutine Event Manager";
         public const string globalEventListener = events + "/Global Event Listener";
         public const string conditionList = events + "/Conditions";
 
 
+        public const string stateMachine = "State Machine";
+
+        public const string stateMachineEvent = stateMachine + "/State Machine Event";
+
+
         public const string movement = "Movement";
 
-        public const string moveHorizontal = movement + "/Move Horizontal (Simple)";
-        public const string moveVertical = movement + "/Move Vertical (Simple)";
-        public const string moveBidirectional = movement + "/Move Bidirectional (Simple)";
-        public const string moveHorizontalPhysics = movement + "/Move Horizontal (Physics)";
-        public const string moveVerticalPhysics = movement + "/Move Vertical (Physics)";
-        public const string moveBidirectionalPhysics = movement + "/Move Bidirectional (Physics)";
+        public const string moveUnidirectional = movement + "/Move Unidirectional";
+        public const string moveBidirectional = movement + "/Move Bidirectional";
         public const string launch = movement + "/Launch";
 
 

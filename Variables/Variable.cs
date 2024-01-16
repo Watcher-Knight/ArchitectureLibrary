@@ -5,6 +5,7 @@ namespace ArchitectureLibrary
     public abstract class Variable<T> : Variable
     {
         public abstract T value { get; set; }
+        public static implicit operator T(Variable<T> variable) => variable.value; 
 
         public override string ToString() => value.ToString();
         public override float ToFloat() => 0f;

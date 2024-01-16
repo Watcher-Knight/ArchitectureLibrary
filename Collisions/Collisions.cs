@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 namespace ArchitectureLibrary
@@ -69,6 +70,27 @@ namespace ArchitectureLibrary
             Collider2D[] colliders = GetContactColliders(collider, tag, direction);
 
             return colliders.Length > 0;
+        }
+
+        public static Collider2D[] GetOverlaps(Collider2D collider)
+        {
+            List<Collider2D> colliders = new();
+            collider.OverlapCollider(new ContactFilter2D().NoFilter(), colliders);
+            return colliders.ToArray();
+        }
+        public static Collider2D[] GetOverlaps(Collider2D collider, Tag tag)
+        {
+            Collider2D[] oldColliders = GetOverlaps(collider);
+            List<Collider2D> newColliders = new();
+            foreach (Collider2D oldCollider in oldColliders)
+            {
+                if (Tags.Contains(collider, tag)) newColliders.Add(oldCollider);
+            }
+            return newColliders.ToArray();
+        }
+        public static bool Overlap(Collider2D collider1, Collider2D collider2)
+        {
+            return GetOverlaps(collider1).Contains(collider2);
         }
     }
 }

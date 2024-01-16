@@ -18,5 +18,11 @@ namespace ArchitectureLibrary
 	
             return text;
         }
+
+		public static string CapitalizeFirst(string text)
+		{
+			if (text != "") return text.Substring(0, 1).ToUpper() + text.Substring(1);
+			return "";
+		}
 	}
 }
