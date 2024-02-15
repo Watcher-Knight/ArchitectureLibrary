@@ -5,7 +5,7 @@ using System.Reflection;
 namespace ArchitectureLibrary
 {
     [CustomEditor(typeof(ScriptableObject), true)]
-    public class ScriptableObjectEditor : Editor
+    public class ScriptableObjectEditor : ObjectEditor
     {
         public override void OnInspectorGUI()
         {
