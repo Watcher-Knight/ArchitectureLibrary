@@ -1,14 +1,13 @@
 using System;
-using System.Linq;
-
+using UnityEngine;
 
 namespace ArchitectureLibrary
 {
     [Serializable]
     public struct EventTag
     {
-        public string Name;
-        public int Id;
+        // String reference: Event Tag Drawer
+        [SerializeField] public int Id;
 
         public static bool operator ==(EventTag a, EventTag b) => a.Id == b.Id;
         public static bool operator !=(EventTag a, EventTag b) => a.Id != b.Id;

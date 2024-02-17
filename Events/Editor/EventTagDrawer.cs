@@ -14,20 +14,25 @@ namespace ArchitectureLibrary
         }
         public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
         {
-            EventTag oldTag = property.GetObject<EventTag>();
-            EventTag[] tags = EventTagEditor.GetTags();
-            string[] tagOptions = tags.Select(tag => tag.Name).ToArray();
-
-            EventTag newTag = tags.Contains(oldTag) ? oldTag : tags[0];
+            SerializedProperty idProperty = property.FindPropertyRelative("Id");
+            EditorEventTag[] tags = EventData.GetTags();
             
-            int index = Array.IndexOf(tags, newTag);
+            int index = 0;
+            if (tags.Any(tag => tag.Id == idProperty.intValue))
+                index = tags.IndexOf(tag => tag.Id == idProperty.intValue);
+            else
+            {
+                EditorEventTag notSetOption = new("Undefined", idProperty.intValue);
+                tags = tags.Append(notSetOption).ToArray();
+                index = tags.IndexOf(notSetOption);
+            }
+            
+            string[] tagOptions = tags.Select(tag => tag.Name).ToArray();
             index = EditorGUILayout.Popup(label, index, tagOptions);
 
-            newTag = tags[index];
+            idProperty.intValue = tags[index].Id;
 
-            property.SetValue(newTag);
-
-            if (oldTag != newTag) EditorUtility.SetDirty(property.serializedObject.targetObject);
+            //if (oldId != newId) EditorUtility.SetDirty(property.serializedObject.targetObject);
         }
     }
 }

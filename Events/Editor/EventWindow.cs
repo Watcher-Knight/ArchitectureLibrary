@@ -1,5 +1,7 @@
 using UnityEngine;
 using UnityEditor;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace ArchitectureLibrary
 {
@@ -24,7 +26,7 @@ namespace ArchitectureLibrary
             if (tagFoldout)
             {
                 int index = 0;
-                foreach (EventTag tag in EventTagEditor.GetTags())
+                foreach (EditorEventTag tag in EventData.GetTags())
                 {
                     GUILayout.BeginHorizontal();
 
@@ -45,13 +47,13 @@ namespace ArchitectureLibrary
                             newTagName = EditorGUILayout.TextField(newTagName);
                             if (GUILayout.Button("Apply"))
                             {
-                                EventTagEditor.EditTag(index, newTagName);
+                                EventData.EditTag(index, newTagName);
                                 tagEdit = -1;
                             }
                             if (GUILayout.Button("Cancel")) tagEdit = -1;
-                            if (EventTagEditor.GetTags().Length > 1 && GUILayout.Button("Delete"))
+                            if (EventData.GetTags().Count() > 1 && GUILayout.Button("Delete"))
                             {
-                                EventTagEditor.DeleteTag(tag);
+                                EventData.DeleteTag(tag.Name);
                                 tagEdit = -1;
                             }
                         }
@@ -81,7 +83,7 @@ namespace ArchitectureLibrary
 
                         if (GUILayout.Button("Add"))
                         {
-                            EventTagEditor.CreateTag(newTagName);
+                            EventData.CreateTag(newTagName);
                             addTag = false;
                             newTagName = "NewTag";
                         }
