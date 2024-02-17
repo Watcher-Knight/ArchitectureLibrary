@@ -26,7 +26,7 @@ namespace ArchitectureLibrary.Tests
         [Test]
         public void ToDirection__Value_Neg90__Return_xNeg1y0() =>
             ToDirection_Test(-90, new(-1, 0));
-            [Test]
+        [Test]
         public void ToDirection__Value_30__NotReturn_x1Dec3y0Dec7()
         {
             // Assign
