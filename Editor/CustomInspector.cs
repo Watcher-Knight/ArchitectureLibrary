@@ -2,6 +2,8 @@ using System;
 using System.Reflection;
 using UnityEngine;
 using UnityEditor;
+using System.Linq;
+using System.Collections.Generic;
 
 namespace ArchitectureLibrary
 {
@@ -12,7 +14,7 @@ namespace ArchitectureLibrary
             object targetObject = target;
             foreach (string f in path)
             {
-                FieldInfo field = targetObject.GetType().GetField(f, Properties.bindingFlags);
+                FieldInfo field = targetObject.GetType().GetField(f, Properties.BindingFlags);
                 targetObject = field.GetValue(targetObject);
             }
             return Properties.Convert<T>(targetObject);
@@ -21,11 +23,11 @@ namespace ArchitectureLibrary
         public void SetField(object value, params string[] path)
         {
             object targetObject = target;
-            FieldInfo field = targetObject.GetType().GetField(path[0], Properties.bindingFlags);
+            FieldInfo field = targetObject.GetType().GetField(path[0], Properties.BindingFlags);
             for (int i = 1; i > path.Length - 1; i++)
             {
                 targetObject = field.GetValue(targetObject);
-                field = targetObject.GetType().GetField(path[i], Properties.bindingFlags);
+                field = targetObject.GetType().GetField(path[i], Properties.BindingFlags);
             }
             if (field.FieldType.IsAssignableFrom(targetObject.GetType()))
             { field.SetValue(targetObject, value); return; }
@@ -89,6 +91,16 @@ namespace ArchitectureLibrary
         public static float GetRelativeWidth(float percentage)
         {
             return (Screen.width - 26) * percentage * .01f;
+        }
+
+        public PropertyInfo[] GetDisplayProperties()
+        {
+            IEnumerable<PropertyInfo> properties = target.GetType().GetProperties(Properties.BindingFlags);
+            if (EditorApplication.isPlaying)
+                properties = properties.Where(p => p.HasAttribute<DisplayAttribute>() || p.HasAttribute<DisplayPlayModeAttribute>());
+            else
+                properties = properties.Where(p => p.GetCustomAttribute<DisplayAttribute>() != null);
+            return properties.ToArray();
         }
     }
 }

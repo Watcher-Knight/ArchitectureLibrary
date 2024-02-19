@@ -6,7 +6,7 @@ namespace ArchitectureLibrary
 {
     public static class StringFormatter
 	{
-		public static string ToTitleCase(string text)
+		public static string ToTitleCase(this string text)
         {
 			if (text != "")
 			{
@@ -21,21 +21,10 @@ namespace ArchitectureLibrary
             return text;
         }
 
-		public static string CapitalizeFirst(string text)
+		public static string CapitalizeFirst(this string text)
 		{
 			if (text.Length > 0) return text[..1].ToUpper() + text[1..];
 			return "";
-		}
-
-		public static T[] JsonToArray<T>(string json)
-		{
-			List<T> list = JsonUtility.FromJson<List<T>>(json);
-			return list.ToArray();
-		}
-		public static string ArrayToJson(object[] array)
-		{
-			List<object> list = new(array);
-			return JsonUtility.ToJson(list);
 		}
 	}
 }

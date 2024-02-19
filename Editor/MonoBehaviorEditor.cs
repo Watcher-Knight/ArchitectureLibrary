@@ -1,11 +1,14 @@
 using UnityEngine;
 using UnityEditor;
 
-[CustomEditor(typeof(MonoBehaviour))]
-public class MonoBehaviorEditor : ObjectEditor
+namespace ArchitectureLibrary
 {
-    public override void OnInspectorGUI()
+    [CustomEditor(typeof(MonoBehaviour), true)]
+    public class MonoBehaviorEditor : ObjectEditor
     {
-        base.OnInspectorGUI();
+        public override void OnInspectorGUI()
+        {
+            base.OnInspectorGUI();
+        }
     }
 }
