@@ -9,9 +9,9 @@ namespace ArchitectureLibrary
     {
         public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
         {
-            FieldInfo valueField = Properties.GetField(property);
-            object parent = Properties.GetParentObject(property);
-            float currentValue = (float) Properties.GetObject<Percentage>(property);
+            FieldInfo valueField = SerializedProperties.GetField(property);
+            object parent = SerializedProperties.GetParentObject(property);
+            float currentValue = (float) SerializedProperties.GetObject<Percentage>(property);
             Percentage newValue = EditorGUI.Slider(position, label, currentValue, 0f, 1f);
             valueField.SetValue(parent, newValue);
 

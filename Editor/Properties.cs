@@ -6,7 +6,7 @@ using GlobalBindingFlags = System.Reflection.BindingFlags;
 
 namespace ArchitectureLibrary
 {
-    public static class Properties
+    public static class SerializedProperties
     {
         public const GlobalBindingFlags BindingFlags =
             GlobalBindingFlags.Public | GlobalBindingFlags.NonPublic | GlobalBindingFlags.Instance;

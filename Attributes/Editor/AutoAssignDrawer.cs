@@ -10,11 +10,12 @@ namespace ArchitectureLibrary
     [CustomPropertyDrawer(typeof(AutoAssignAttribute))]
     public class AutoAssignDrawer : PropertyDrawer
     {
+        private bool ErrorMessageDisplayed = false;
         public const float buttonWidth = 20;
 
         public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
         {
-            Type type = Properties.GetPropertyType(property);
+            Type type = SerializedProperties.GetPropertyType(property);
             MethodInfo GUIMethod;
 
             if (typeof(Component).IsAssignableFrom(type))
@@ -23,12 +24,20 @@ namespace ArchitectureLibrary
                 GUIMethod = GUIMethod.MakeGenericMethod(type);
                 GUIMethod.Invoke(null, new object[3] { position, property, label });
             }
-
-            if (typeof(ScriptableObject).IsAssignableFrom(type))
+            else if (typeof(ScriptableObject).IsAssignableFrom(type))
             {
                 GUIMethod = GetType().GetMethod(nameof(ScriptableObjectGUI));
                 GUIMethod = GUIMethod.MakeGenericMethod(type);
                 GUIMethod.Invoke(null, new object[3] { position, property, label });
+            }
+            else
+            {
+                EditorGUI.PropertyField(position, property, label);
+                if (!ErrorMessageDisplayed)
+                {
+                    Debug.LogWarning($"AutoAssign attribute is not valid for serialized property, \"{property.name}\". It is only valid for object reference values.");
+                    ErrorMessageDisplayed = true;
+                }
             }
         }
 
@@ -45,9 +54,11 @@ namespace ArchitectureLibrary
                 GameObject gameObject = ((Component)parent.targetObject).gameObject;
 
                 if (gameObject.TryGetComponent(out T component))
-                {
                     property.objectReferenceValue = component;
-                }
+                else if (gameObject.TryGetParentComponent(out T parentComponent))
+                    property.objectReferenceValue = parentComponent;
+                else if (gameObject.TryGetChildComponent(out T childComponent))
+                    property.objectReferenceValue = childComponent;
                 else
                 {
                     Rect fieldPosition = new(position);
@@ -90,7 +101,7 @@ namespace ArchitectureLibrary
 
                 property.objectReferenceValue =
                     EditorGUI.ObjectField(fieldPosition, property.objectReferenceValue, typeof(T), true);
-                    
+
                 if (GUI.Button(buttonPosition, "+"))
                 {
                     string directory = AssetPaths.scriptableObjects;
@@ -98,8 +109,10 @@ namespace ArchitectureLibrary
                     name = Regex.Replace(name, "Data$", "");
                     if (parent != null && typeof(Component).IsAssignableFrom(parent.targetObject.GetType()))
                     {
-                        directory += "/" + ((Component) parent.targetObject).name;
+                        directory += "/" + ((Component)parent.targetObject).name;
+                        name += parent.targetObject.GetType().Name;
                     }
+                    if (name == "") name = "NewObject";
 
                     property.objectReferenceValue = ScriptableObjectFactory.Create<T>(directory, name);
                 }
