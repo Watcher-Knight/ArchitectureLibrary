@@ -1,6 +1,5 @@
-using System.Collections.Generic;
+using System.Linq;
 using System.Text.RegularExpressions;
-using UnityEngine;
 
 namespace ArchitectureLibrary
 {
@@ -10,12 +9,13 @@ namespace ArchitectureLibrary
         {
 			if (text != "")
 			{
-				text = Regex.Replace(text, @"_", " ");
-				text = Regex.Replace(text, @"^\s+|\s+$", "");
-				text = Regex.Replace(text, @"\s+", " ");
-				text = CapitalizeFirst(text);
-				text = Regex.Replace(text, @"(\S)([A-Z])", "$1 $2");
-                text = Regex.Replace(text, @"(\D)(\d)", "$1 $2");
+				text = Regex.Replace(text, @"_", " "); // Remove underscores
+				text = Regex.Replace(text, @"^\s+|\s+$", ""); // Remove deadspace
+				text = Regex.Replace(text, @"\s+", " "); // Remove multiple adjacent spaces
+				text = CapitalizeFirst(text); // Capitalize First Letter
+				text = Regex.Replace(text, @"(\S)([A-Z])", "$1 $2"); // Add space before capital letters
+                text = Regex.Replace(text, @"(\D)(\d)", "$1 $2"); // Add space between digits and non-digits
+				text = string.Join(' ', text.Split(" ").Select(t => t.CapitalizeFirst())); // Capitalize every letter after a space
 			}
 	
             return text;
