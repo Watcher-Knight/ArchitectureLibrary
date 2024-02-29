@@ -13,6 +13,13 @@ namespace ArchitectureLibrary
             type.GetProperties(bindingFlags).Where(p => p.HasAttribute<T>()).ToArray();
         public static MethodInfo[] GetMethodsWithAttribute<T>(this Type type, BindingFlags bindingFlags = SerializedProperties.BindingFlags) where T : Attribute =>
             type.GetMethods(bindingFlags).Where(m => m.HasAttribute<T>()).ToArray();
+
+        public static bool TryGetField(this Type type, string name, out FieldInfo result) =>
+            (result = type.GetField(name)) != null;
+        public static bool TryGetProperty(this Type type, string name, out PropertyInfo result) =>
+            (result = type.GetProperty(name)) != null;
+        public static bool TryGetMethod(this Type type, string name, out MethodInfo result) =>
+            (result = type.GetMethod(name)) != null;
             
         public static object Default(this Type type)
         {

@@ -105,7 +105,7 @@ namespace ArchitectureLibrary
                 if (EditorApplication.isPlaying)
                     properties = properties.Where(p => p.HasAttribute<DisplayAttribute>() || p.HasAttribute<DisplayPlayModeAttribute>());
                 else
-                    properties = properties.Where(p => p.GetCustomAttribute<DisplayAttribute>() != null);
+                    properties = properties.Where(p => p.HasAttribute<DisplayAttribute>());
             }
 
             return properties.ToArray();
