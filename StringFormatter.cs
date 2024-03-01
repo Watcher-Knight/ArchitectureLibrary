@@ -23,7 +23,7 @@ namespace ArchitectureLibrary
 
 		public static string CapitalizeFirst(this string text)
 		{
-			if (text.Length > 0) return text[..1].ToUpper() + text[1..];
+			if (text != null && text.Length > 0) return text[..1].ToUpper() + text[1..];
 			return "";
 		}
 	}
