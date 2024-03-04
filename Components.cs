@@ -4,6 +4,16 @@ namespace ArchitectureLibrary
 {
     public static class Components
     {
+        public static T GetComponentInGroup<T>(this GameObject gameObject) where T : Component
+        {
+            if (gameObject.TryGetComponent(out T component)) return component;
+            if (gameObject.TryGetParentComponent(out T parentComponent)) return parentComponent;
+            if (gameObject.TryGetChildComponent(out T childComponent)) return childComponent;
+            return null;
+        }
+        public static bool TryGetComponentInGroup<T>(this GameObject gameObject, out T component) where T : Component => (component = gameObject.GetComponentInGroup<T>()) != null;
+        public static T GetComponentInGroup<T>(this Component origin) where T : Component => origin.gameObject.GetComponentInGroup<T>();
+        public static bool TryGetComponentInGroup<T>(this Component origin, out T component) where T : Component => origin.gameObject.TryGetComponentInGroup(out component);
         public static bool TryGetParentComponent<T>(this GameObject gameObject, out T component) where T : Component
         {
             component = gameObject.GetComponentInParent<T>();
