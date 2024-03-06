@@ -2,7 +2,7 @@ using System;
 using System.Linq;
 using System.Reflection;
 
-namespace ArchitectureLibrary
+namespace ArchitectureLibrary.Editor
 {
     public static class ReflectionExtensions
     {

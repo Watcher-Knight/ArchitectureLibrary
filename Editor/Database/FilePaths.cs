@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace ArchitectureLibrary
+namespace ArchitectureLibrary.Editor
 {
     public static class FilePaths
     {

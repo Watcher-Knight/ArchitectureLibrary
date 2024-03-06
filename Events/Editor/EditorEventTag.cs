@@ -1,6 +1,6 @@
 using System;
 
-namespace ArchitectureLibrary
+namespace ArchitectureLibrary.Editor
 {
     [Serializable]
     public struct EditorEventTag

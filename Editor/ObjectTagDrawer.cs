@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEditor;
 
-namespace ArchitectureLibrary
+namespace ArchitectureLibrary.Editor
 {
     [CustomPropertyDrawer(typeof(ObjectTag))]
     public class ObjectTagDrawer : PropertyDrawer

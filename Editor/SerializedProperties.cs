@@ -4,7 +4,7 @@ using System.Reflection;
 using UnityEditor;
 using GlobalBindingFlags = System.Reflection.BindingFlags;
 
-namespace ArchitectureLibrary
+namespace ArchitectureLibrary.Editor
 {
     public static class SerializedProperties
     {

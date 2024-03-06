@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEditor;
 
-namespace ArchitectureLibrary
+namespace ArchitectureLibrary.Editor
 {
     [CustomEditor(typeof(MonoBehaviour), true)]
     public class MonoBehaviorEditor : ObjectEditor

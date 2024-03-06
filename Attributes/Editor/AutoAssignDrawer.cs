@@ -5,7 +5,7 @@ using System.Reflection;
 using System.Text.RegularExpressions;
 
 
-namespace ArchitectureLibrary
+namespace ArchitectureLibrary.Editor
 {
     [CustomPropertyDrawer(typeof(AutoAssignAttribute))]
     public class AutoAssignDrawer : PropertyDrawer

@@ -2,7 +2,7 @@ using UnityEngine;
 using UnityEditor;
 using System.Reflection;
 
-namespace ArchitectureLibrary
+namespace ArchitectureLibrary.Editor
 {
     [CustomEditor(typeof(ScriptableObject), true)]
     public class ScriptableObjectEditor : ObjectEditor

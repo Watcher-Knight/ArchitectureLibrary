@@ -1,9 +1,8 @@
 using UnityEngine;
 using UnityEditor;
-using System.Collections.Generic;
 using System.Linq;
 
-namespace ArchitectureLibrary
+namespace ArchitectureLibrary.Editor
 {
     public class EventWindow : EditorWindow
     {

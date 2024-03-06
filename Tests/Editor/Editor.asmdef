@@ -1,5 +1,5 @@
 {
-    "name": "Editor",
+    "name": "ArchitectureLibraryEditorTest",
     "rootNamespace": "",
     "references": [
         "UnityEngine.TestRunner",

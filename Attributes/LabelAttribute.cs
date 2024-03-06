@@ -1,5 +1,8 @@
 using UnityEngine;
+
+#if UNITY_EDITOR
 using UnityEditor;
+#endif
 
 namespace ArchitectureLibrary
 {
@@ -9,6 +12,7 @@ namespace ArchitectureLibrary
         public LabelAttribute(string text) => Text = text;
     }
 
+#if UNITY_EDITOR
     [CustomPropertyDrawer(typeof(LabelAttribute))]
     public class LabelDrawer : PropertyDrawer
     {
@@ -32,4 +36,5 @@ namespace ArchitectureLibrary
             }
         }
     }
+#endif
 }

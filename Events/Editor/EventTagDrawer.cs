@@ -3,7 +3,7 @@ using System.Linq;
 using UnityEngine;
 using UnityEditor;
 
-namespace ArchitectureLibrary
+namespace ArchitectureLibrary.Editor
 {
     [CustomPropertyDrawer(typeof(EventTag))]
     public class EventTagDrawer : PropertyDrawer

@@ -2,7 +2,7 @@ using System.Reflection;
 using UnityEngine;
 using UnityEditor;
 
-namespace ArchitectureLibrary
+namespace ArchitectureLibrary.Editor
 {
     [CustomPropertyDrawer(typeof(Percentage))]
     public class PercentageDrawer : PropertyDrawer

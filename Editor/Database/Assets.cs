@@ -1,7 +1,7 @@
 using System.IO;
 using UnityEditor;
 
-namespace ArchitectureLibrary
+namespace ArchitectureLibrary.Editor
 {
     public static class AssetManager
     {

@@ -3,7 +3,7 @@ using UnityEditor;
 using UnityEditor.Animations;
 using System.Linq;
 
-namespace ArchitectureLibrary
+namespace ArchitectureLibrary.Editor
 {
     public abstract class AnimatorParameterDrawer : PropertyDrawer
     {

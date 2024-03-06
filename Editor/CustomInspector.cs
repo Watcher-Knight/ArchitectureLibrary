@@ -6,9 +6,9 @@ using System.Linq;
 using System.Collections.Generic;
 using Object = UnityEngine.Object;
 
-namespace ArchitectureLibrary
+namespace ArchitectureLibrary.Editor
 {
-    public class CustomInspector : Editor
+    public class CustomInspector : UnityEditor.Editor
     {
         public T GetField<T>(params string[] path)
         {
